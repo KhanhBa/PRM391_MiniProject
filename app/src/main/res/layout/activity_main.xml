@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:padding="10dp">
+
+    <TextView
+        android:layout_marginTop="30dp"
+        android:id="@+id/Game"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RacingHourse"
+        android:textSize="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:id="@+id/txtMoney"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Game" />
+
+    <Button
+        android:id="@+id/btnNap"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nạp Thêm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtMoney"
+        app:layout_constraintTop_toBottomOf="@+id/Game" />
+
+    <RelativeLayout
+        android:id="@+id/Play"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/btnNap"
+        tools:layout_editor_absoluteX="0dp">
+
+        <RelativeLayout
+            android:id="@+id/runLine1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <EditText
+                android:id="@+id/etCoc1"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+
+            <SeekBar
+                android:id="@+id/Runner1"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_toEndOf="@+id/etCoc1"
+                android:max="100" />
+            <!--                android:thumb="@drawable/img"-->
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/runLine2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/runLine1">
+
+            <EditText
+                android:id="@+id/etCoc2"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+
+            <SeekBar
+                android:id="@+id/Runner2"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_toEndOf="@+id/etCoc2"
+                android:max="100" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/runLine3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/runLine2">
+
+            <EditText
+                android:id="@+id/etCoc3"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+
+            <SeekBar
+                android:id="@+id/Runner3"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_toEndOf="@+id/etCoc3"
+                android:max="100" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start"
+        app:layout_constraintTop_toBottomOf="@+id/Play"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
