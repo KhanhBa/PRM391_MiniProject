@@ -100,9 +100,8 @@ public class MainActivity extends AppCompatActivity {
     private void onFirstRunnerFinished(int i) {
         isRunning = false;
         handler.removeCallbacksAndMessages(null);
-        if(!hasWinner)
-        {
-            Toast.makeText(MainActivity.this, "Runner "+i+" win", Toast.LENGTH_SHORT).show();
+        if (!hasWinner) {
+            Toast.makeText(MainActivity.this, "Runner " + i + " win", Toast.LENGTH_SHORT).show();
         }
     }
 }
