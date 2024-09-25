@@ -23,7 +23,8 @@
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:textSize="20dp"
-        android:text="TextView"
+        android:text="100"
+        android:gravity="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Game" />
 
@@ -56,6 +57,8 @@
                 android:id="@+id/etCoc1"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="0dp"
                 android:inputType="number" />
 
             <SeekBar
@@ -78,6 +81,8 @@
                 android:id="@+id/etCoc2"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="0dp"
                 android:inputType="number" />
 
             <SeekBar
@@ -98,6 +103,8 @@
                 android:id="@+id/etCoc3"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="0dp"
                 android:inputType="number" />
 
             <SeekBar
