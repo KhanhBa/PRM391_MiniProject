@@ -21,7 +21,6 @@ public class LoginActivity extends AppCompatActivity {
         list.add(new User("user2","123456",200));
         list.add(new User("user3","123456",300));
         // lam` trang login cho 3 tai khoan nay`
-        // ham` de check login, tu lam` trang signUp
         Optional<User> check = list.stream().filter(s->s.getUserName()=="user1" && s.getPassword()=="123456").findFirst();
     }
 }
