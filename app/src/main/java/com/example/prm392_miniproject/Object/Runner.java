@@ -1,8 +1,9 @@
 package com.example.prm392_miniproject.Object;
 
 public class Runner {
-    String Name;
-    int Image;
+    private String Name;
+    private int Image;
+    private double finishTime;
 
     public Runner() {
     }
@@ -26,5 +27,13 @@ public class Runner {
 
     public void setImage(int image) {
         Image = image;
+    }
+
+    public double getFinishTime() {
+        return finishTime;
+    }
+
+    public void setFinishTime(double finishTime) {
+        this.finishTime = finishTime;
     }
 }
