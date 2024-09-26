@@ -77,7 +77,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void startAction() {
         isRunning = true;
-
+        etCoc1.setEnabled(false);
+        etCoc3.setEnabled(false);
+        etCoc2.setEnabled(false);
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
@@ -139,6 +141,10 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
             money.setText(String.valueOf(moneyInWallet));
+
+            etCoc1.setEnabled(true);
+            etCoc3.setEnabled(true);
+            etCoc2.setEnabled(true);
         }
     }
 
