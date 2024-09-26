@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">PRM392_MiniProject</string>
+    <string name="race_result_title">Kết quả đua ngựa</string>
+    <string name="trophy_description">Cúp chiến thắng</string>
+    <string name="winner_label">Ngựa chiến thắng:</string>
+    <string name="time_label">Thời gian:</string>
+    <string name="play_again">Chơi lại</string>
+    <string name="horse_image_description">Hình ảnh ngựa</string>
 </resources>
