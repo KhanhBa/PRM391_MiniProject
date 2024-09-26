@@ -1,5 +1,6 @@
 package com.example.prm392_miniproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -14,16 +15,20 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.prm392_miniproject.Object.User;
+
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnStart;
+    private Button btnStart, btnDeposit;
     private SeekBar runner1, runner2, runner3;
     private EditText etCoc1, etCoc2, etCoc3;
     private Handler handler;
     private int progressValue1, progressValue2, progressValue3 = 0;
     private boolean isRunning,hasWinner = false;
+    private User user;
+
 
 
     @Override
@@ -33,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize views
         btnStart = findViewById(R.id.btnStart);
+        btnDeposit = findViewById(R.id.btnNap);
         runner1 = findViewById(R.id.Runner1);
         runner2 = findViewById(R.id.Runner2);
         runner3 = findViewById(R.id.Runner3);
@@ -53,7 +59,19 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        btnDeposit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, DepositActivity.class);
+                int moneyCurrent = user.getMoneyInWallet();
+                intent.putExtra("moneyCurrent", moneyCurrent);
+                startActivity(intent);
+            }
+        });
     }
+
+
 
         private void startAction () {
 
@@ -66,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     else{
                         onFirstRunnerFinished(1);
-
+                        hasWinner=true;
                     }
                     if (progressValue2 < 100) {
                         runner2.setProgress(progressValue2);
