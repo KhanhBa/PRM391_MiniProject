@@ -1,8 +1,11 @@
 package com.example.prm392_miniproject;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
@@ -11,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.HashMap;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -46,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
                 int coc1 = getMoney(etCoc1);
                 int coc2 = getMoney(etCoc2);
                 int coc3 = getMoney(etCoc3);
+
                 int sum = coc1 + coc2 + coc3;
 
                 if (sum > 0 && sum <= moneyInWallet) {
@@ -77,9 +82,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void startAction() {
         isRunning = true;
-        etCoc1.setEnabled(false);
-        etCoc3.setEnabled(false);
-        etCoc2.setEnabled(false);
+
+        TurnOnOffFee(false);
+
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
@@ -88,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
                     progressValue1 = progressValue1 + random();
                 } else if (!hasWinner) {
                     onFirstRunnerFinished(1);
+                    showWinDialog("Blue Horse");
                 }
 
                 if (progressValue2 < 100) {
@@ -95,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
                     progressValue2 = progressValue2 + random();
                 } else if (!hasWinner) {
                     onFirstRunnerFinished(2);
+                    showWinDialog("Red Horse");
                 }
 
                 if (progressValue3 < 100) {
@@ -102,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
                     progressValue3 = progressValue3 + random();
                 } else if (!hasWinner) {
                     onFirstRunnerFinished(3);
+                    showWinDialog("Yellow Horse");
                 }
 
                 if (progressValue1 < 100 || progressValue2 < 100 || progressValue3 < 100) {
@@ -125,7 +133,6 @@ public class MainActivity extends AppCompatActivity {
         if (!hasWinner) {
             hasWinner = true;
             winnerIndex = i;
-            Toast.makeText(MainActivity.this, "Runner " + i + " wins!", Toast.LENGTH_SHORT).show();
             int coc1 = getMoney(etCoc1);
             int coc2 = getMoney(etCoc2);
             int coc3 = getMoney(etCoc3);
@@ -142,9 +149,8 @@ public class MainActivity extends AppCompatActivity {
             }
             money.setText(String.valueOf(moneyInWallet));
 
-            etCoc1.setEnabled(true);
-            etCoc3.setEnabled(true);
-            etCoc2.setEnabled(true);
+            TurnOnOffFee(true);
+
         }
     }
 
@@ -154,5 +160,37 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             return 0;
         }
+    }
+
+    private void TurnOnOffFee(boolean value){
+        etCoc1.setEnabled(value);
+        etCoc3.setEnabled(value);
+        etCoc2.setEnabled(value);
+    }
+
+    private void showWinDialog(String s) {
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.activity_race_result);
+
+        Window window = dialog.getWindow();
+        if (window != null) {
+            WindowManager.LayoutParams layoutParams = window.getAttributes();
+            layoutParams.width = (int) (getResources().getDisplayMetrics().widthPixels * 0.9);
+            layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
+            window.setAttributes(layoutParams);
+        }
+
+        TextView messageTextView = dialog.findViewById(R.id.tvWinnerName);
+        messageTextView.setText(s);
+
+        Button closeButton = dialog.findViewById(R.id.btnContinue);
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 }
