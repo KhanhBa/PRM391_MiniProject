@@ -1,5 +1,6 @@
 package com.example.prm392_miniproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -9,13 +10,17 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.prm392_miniproject.Object.User;
 
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnStart;
+    private Button btnStart, btnNap;
     private SeekBar runner1, runner2, runner3;
     private EditText etCoc1, etCoc2, etCoc3;
     private Handler handler;
@@ -23,12 +28,16 @@ public class MainActivity extends AppCompatActivity {
     private int progressValue1, progressValue2, progressValue3, winnerIndex = 0;
     private boolean isRunning, hasWinner = false;
     private int moneyInWallet = 0;
+    private User user = new User();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         btnStart = findViewById(R.id.btnStart);
+        btnNap = findViewById(R.id.btnNap);
         runner1 = findViewById(R.id.Runner1);
         runner2 = findViewById(R.id.Runner2);
         runner3 = findViewById(R.id.Runner3);
@@ -36,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         etCoc2 = findViewById(R.id.etCoc2);
         etCoc3 = findViewById(R.id.etCoc3);
         money = findViewById(R.id.txtMoney);
-        moneyInWallet = Integer.parseInt(money.getText().toString());
         handler = new Handler();
 
         btnStart.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +69,14 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(MainActivity.this, "Invalid", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        btnNap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, DepositActivity.class);
+                depositLauncher.launch(intent);
             }
         });
     }
@@ -154,4 +170,16 @@ public class MainActivity extends AppCompatActivity {
             return 0;
         }
     }
+
+    private final ActivityResultLauncher<Intent> depositLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                    moneyInWallet = result.getData().getIntExtra("money", 0);
+                    user.setMoneyInWallet(moneyInWallet);
+                    money.setText(String.valueOf(moneyInWallet));
+                }
+            });
+
+
 }

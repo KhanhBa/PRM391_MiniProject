@@ -32,7 +32,7 @@
         android:layout_marginStart="84dp"
         android:layout_marginTop="32dp"
         android:gravity="center"
-        android:text="100"
+        android:text="0"
 
         android:textColor="#2AD17D"
         android:textSize="20dp"
