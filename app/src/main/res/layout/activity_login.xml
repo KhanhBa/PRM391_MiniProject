@@ -13,12 +13,12 @@
         android:layout_height="320dp"
         android:scaleType="centerCrop"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/abcd" />
+        app:srcCompat="@drawable/banner2" />
 
     <View
         android:id="@+id/rounded_background"
         android:layout_width="0dp"
-        android:layout_height="600dp"
+        android:layout_height="480dp"
         android:background="@drawable/rounded_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,7 +55,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_weight="1"
                 android:text="Sign In"
-                android:textColor="@color/black"
+                android:textColor="#ED9000"
                 android:textSize="33dp"
                 android:textStyle="bold" />
 
@@ -156,7 +156,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
-                android:background="@drawable/btn_orange"
+                android:background="@drawable/button"
                 android:text="Sign In"
                 android:textColor="#ffffff"
                 android:textSize="24sp"
