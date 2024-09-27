@@ -203,11 +203,14 @@ public class MainActivity extends AppCompatActivity {
 
         dialog.show();
     }
+
+
     private ActivityResultLauncher<Intent> depositLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                    moneyInWallet = result.getData().getIntExtra("money", 0);
+                    Integer rechargeMoney = result.getData().getIntExtra("money", 0);
+                    moneyInWallet+=rechargeMoney;
                     user.setMoneyInWallet(moneyInWallet);
                     money.setText(String.valueOf(moneyInWallet));
                 }
