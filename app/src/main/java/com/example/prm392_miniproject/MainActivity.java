@@ -1,6 +1,7 @@
 package com.example.prm392_miniproject;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -12,27 +13,31 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.HashMap;
+import com.example.prm392_miniproject.Object.User;
+
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnStart;
+    private Button btnStart, btnNap;
     private SeekBar runner1, runner2, runner3;
     private EditText etCoc1, etCoc2, etCoc3;
     private Handler handler;
     private TextView money;
     private int progressValue1, progressValue2, progressValue3, winnerIndex = 0;
     private boolean isRunning, hasWinner = false;
-    private int moneyInWallet = 0;
 
+    private int moneyInWallet = 0;
+    private User user = new User();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        btnNap = findViewById(R.id.btnNap);
         btnStart = findViewById(R.id.btnStart);
         runner1 = findViewById(R.id.Runner1);
         runner2 = findViewById(R.id.Runner2);
@@ -50,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
                 int coc1 = getMoney(etCoc1);
                 int coc2 = getMoney(etCoc2);
                 int coc3 = getMoney(etCoc3);
-
                 int sum = coc1 + coc2 + coc3;
 
                 if (sum > 0 && sum <= moneyInWallet) {
@@ -69,6 +73,14 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        btnNap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, DepositActivity.class);
+                depositLauncher.launch(intent);
+            }
+        });
     }
 
     private void loadAction() {
@@ -82,9 +94,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void startAction() {
         isRunning = true;
-
-        TurnOnOffFee(false);
-
+        etCoc1.setEnabled(false);
+        etCoc3.setEnabled(false);
+        etCoc2.setEnabled(false);
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
@@ -93,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
                     progressValue1 = progressValue1 + random();
                 } else if (!hasWinner) {
                     onFirstRunnerFinished(1);
-                    showWinDialog("Blue Horse");
                 }
 
                 if (progressValue2 < 100) {
@@ -101,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
                     progressValue2 = progressValue2 + random();
                 } else if (!hasWinner) {
                     onFirstRunnerFinished(2);
-                    showWinDialog("Red Horse");
                 }
 
                 if (progressValue3 < 100) {
@@ -109,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
                     progressValue3 = progressValue3 + random();
                 } else if (!hasWinner) {
                     onFirstRunnerFinished(3);
-                    showWinDialog("Yellow Horse");
                 }
 
                 if (progressValue1 < 100 || progressValue2 < 100 || progressValue3 < 100) {
@@ -133,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
         if (!hasWinner) {
             hasWinner = true;
             winnerIndex = i;
+            Toast.makeText(MainActivity.this, "Runner " + i + " wins!", Toast.LENGTH_SHORT).show();
             int coc1 = getMoney(etCoc1);
             int coc2 = getMoney(etCoc2);
             int coc3 = getMoney(etCoc3);
@@ -149,8 +159,9 @@ public class MainActivity extends AppCompatActivity {
             }
             money.setText(String.valueOf(moneyInWallet));
 
-            TurnOnOffFee(true);
-
+            etCoc1.setEnabled(true);
+            etCoc3.setEnabled(true);
+            etCoc2.setEnabled(true);
         }
     }
 
@@ -161,7 +172,6 @@ public class MainActivity extends AppCompatActivity {
             return 0;
         }
     }
-
     private void TurnOnOffFee(boolean value){
         etCoc1.setEnabled(value);
         etCoc3.setEnabled(value);
@@ -193,4 +203,16 @@ public class MainActivity extends AppCompatActivity {
 
         dialog.show();
     }
+    private ActivityResultLauncher<Intent> depositLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                    moneyInWallet = result.getData().getIntExtra("money", 0);
+                    user.setMoneyInWallet(moneyInWallet);
+                    money.setText(String.valueOf(moneyInWallet));
+                }
+            });
 }
+
+
+
