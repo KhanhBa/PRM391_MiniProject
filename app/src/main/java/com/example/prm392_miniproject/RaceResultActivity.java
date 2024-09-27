@@ -39,8 +39,8 @@ public class RaceResultActivity extends AppCompatActivity {
     private void initializeViews() {
         tvWinnerName = findViewById(R.id.tvWinnerName);
         tvTime = findViewById(R.id.tvTime);
-        rvResults = findViewById(R.id.rvResults);
-        btnPlayAgain = findViewById(R.id.btnPlayAgain);
+
+        btnPlayAgain = findViewById(R.id.btnContinue);
     }
 
     private void loadData() {

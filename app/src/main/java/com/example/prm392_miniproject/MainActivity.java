@@ -1,9 +1,12 @@
 package com.example.prm392_miniproject;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
@@ -27,17 +30,15 @@ public class MainActivity extends AppCompatActivity {
     private TextView money;
     private int progressValue1, progressValue2, progressValue3, winnerIndex = 0;
     private boolean isRunning, hasWinner = false;
+
     private int moneyInWallet = 0;
     private User user = new User();
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        btnStart = findViewById(R.id.btnStart);
         btnNap = findViewById(R.id.btnNap);
+        btnStart = findViewById(R.id.btnStart);
         runner1 = findViewById(R.id.Runner1);
         runner2 = findViewById(R.id.Runner2);
         runner3 = findViewById(R.id.Runner3);
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         etCoc2 = findViewById(R.id.etCoc2);
         etCoc3 = findViewById(R.id.etCoc3);
         money = findViewById(R.id.txtMoney);
+        moneyInWallet = Integer.parseInt(money.getText().toString());
         handler = new Handler();
 
         btnStart.setOnClickListener(new View.OnClickListener() {
@@ -170,8 +172,38 @@ public class MainActivity extends AppCompatActivity {
             return 0;
         }
     }
+    private void TurnOnOffFee(boolean value){
+        etCoc1.setEnabled(value);
+        etCoc3.setEnabled(value);
+        etCoc2.setEnabled(value);
+    }
 
-    private final ActivityResultLauncher<Intent> depositLauncher = registerForActivityResult(
+    private void showWinDialog(String s) {
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.activity_race_result);
+
+        Window window = dialog.getWindow();
+        if (window != null) {
+            WindowManager.LayoutParams layoutParams = window.getAttributes();
+            layoutParams.width = (int) (getResources().getDisplayMetrics().widthPixels * 0.9);
+            layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
+            window.setAttributes(layoutParams);
+        }
+
+        TextView messageTextView = dialog.findViewById(R.id.tvWinnerName);
+        messageTextView.setText(s);
+
+        Button closeButton = dialog.findViewById(R.id.btnContinue);
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+    private ActivityResultLauncher<Intent> depositLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == RESULT_OK && result.getData() != null) {
@@ -180,6 +212,7 @@ public class MainActivity extends AppCompatActivity {
                     money.setText(String.valueOf(moneyInWallet));
                 }
             });
-
-
 }
+
+
+
