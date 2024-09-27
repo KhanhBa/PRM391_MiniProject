@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@color/white"
+    android:background="@drawable/background"
     >
 
     <TextView
@@ -14,10 +14,11 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="28dp"
-        android:background="@drawable/gradient_button"
+        android:background="@drawable/text_view_background"
         android:gravity="center"
         android:text="RACING HORSES"
         android:textColor="@color/white"
+        android:fontFamily="sans-serif-black"
         android:textSize="30dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,34 +26,59 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/txtMoney"
-        android:layout_width="53dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="32dp"
-        android:gravity="center"
-        android:text="100"
-
-        android:textColor="#2AD17D"
-        android:textSize="20dp"
-        android:textStyle="bold"
+    <LinearLayout
+        android:id="@+id/llBudget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/Play"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.056"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Game" />
+        app:layout_constraintTop_toBottomOf="@+id/Game"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/txtBudgetTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:fontFamily="sans-serif-black"
+            android:gravity="center"
+            android:text="Budget:"
+            android:textColor="#ED9000"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtMoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="sans-serif-black"
+            android:gravity="center"
+            android:text="100"
+            android:textColor="#ED9000"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnNap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:backgroundTint="#2AD17D"
+        android:layout_marginTop="52dp"
+        android:background="@drawable/button"
         android:text="NẠP"
         android:textColor="@color/white"
         app:cornerRadius="7dp"
-
+        android:fontFamily="sans-serif-black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.926"
-        app:layout_constraintStart_toEndOf="@+id/txtMoney"
+        app:layout_constraintHorizontal_bias="0.925"
+        app:layout_constraintStart_toEndOf="@+id/llBudget"
         app:layout_constraintTop_toBottomOf="@+id/Game" />
 
     <RelativeLayout
@@ -78,7 +104,8 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="0dp"
                 android:inputType="number"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
+                android:fontFamily="sans-serif-black"
                 />
 
             <SeekBar
@@ -105,7 +132,9 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="0dp"
                 android:inputType="number"
-                android:textColor="@color/black"/>
+                android:textColor="@color/white"
+                android:fontFamily="sans-serif-black"
+                />
 
             <SeekBar
                 android:id="@+id/Runner2"
@@ -131,7 +160,9 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="0dp"
                 android:inputType="number"
-                android:textColor="@color/black"/>
+                android:textColor="@color/white"
+                android:fontFamily="sans-serif-black"
+                />
 
             <SeekBar
                 android:thumb="@drawable/yellow_horse"
@@ -148,7 +179,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:backgroundTint="#2AD17D"
+        android:background="@drawable/button"
         android:text="START"
         android:textColor="@color/white"
         app:cornerRadius="7dp"
@@ -156,23 +187,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Play"
-        app:layout_constraintVertical_bias="0.504" />
-
-    <TextView
-        android:id="@+id/tvBudgetName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
-        android:gravity="center"
-        android:text="Budget:"
-        android:textColor="#2AD17D"
-        android:textSize="15dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/Play"
-        app:layout_constraintEnd_toStartOf="@+id/txtMoney"
-        app:layout_constraintHorizontal_bias="0.433"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Game"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.387"
+        android:fontFamily="sans-serif-black"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
