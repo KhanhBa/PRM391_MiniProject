@@ -134,4 +134,38 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (media != null) {
+            media.stop();
+            media.release();
+            media = null;
+        }
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (media != null && media.isPlaying()) {
+            media.pause();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (media != null && !media.isPlaying()) {
+            media.start();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (media != null) {
+            media.stop();
+            media.release();
+            media = null;
+        }
+    }
 }
