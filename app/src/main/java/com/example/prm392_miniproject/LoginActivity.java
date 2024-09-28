@@ -1,6 +1,7 @@
 package com.example.prm392_miniproject;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.PasswordTransformationMethod;
@@ -25,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView tvSignUp;
     private ImageView ivEye1;
     private boolean isPasswordVisible = false;
-
+    private MediaPlayer media;
     // Hard-coded users list
     private List<User> hardCodedUsers;
 
@@ -33,7 +34,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        media = MediaPlayer.create(this,R.raw.game_music_loop_3);
+        media.setLooping(true);
+        media.start();
         // Initialize views
         edtUsername = findViewById(R.id.edtUsername);
         edtPassword = findViewById(R.id.edtPassword);
