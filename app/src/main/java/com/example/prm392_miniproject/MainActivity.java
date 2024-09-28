@@ -2,6 +2,7 @@ package com.example.prm392_miniproject;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView money;
     private int progressValue1, progressValue2, progressValue3, winnerIndex = 0;
     private boolean isRunning, hasWinner = false;
-
+    private MediaPlayer media;
     private int moneyInWallet = 0;
     private User user = new User();
     @Override
@@ -48,7 +49,15 @@ public class MainActivity extends AppCompatActivity {
         money = findViewById(R.id.txtMoney);
         moneyInWallet = Integer.parseInt(money.getText().toString());
         handler = new Handler();
+        if (media != null) {
+            media.stop();
+            media.release();
+            media = null;
+        }
 
+        media = MediaPlayer.create(this, R.raw.bit_sample);
+        media.setLooping(true);
+        media.start();
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,10 +102,35 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startAction() {
-        isRunning = true;
         etCoc1.setEnabled(false);
         etCoc3.setEnabled(false);
         etCoc2.setEnabled(false);
+
+        if (media != null) {
+            media.stop();
+            media.release();
+            media = null;
+        }
+
+
+         media = MediaPlayer.create(this,R.raw.game_countdown);
+        media.setOnCompletionListener((mg)->{
+            if (media != null) {
+                media.stop();
+                media.release();
+                media = null;
+            }
+
+            media=MediaPlayer.create(this,R.raw.horse_footsteps);
+            media.setLooping(true);
+            media.start();
+
+            StartRace();
+        });
+         media.start();
+    }
+    private void StartRace(){
+        isRunning = true;
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
@@ -105,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
                     progressValue1 = progressValue1 + random();
                 } else if (!hasWinner) {
                     onFirstRunnerFinished(1);
+                    showWinDialog("Blue Horse");
                 }
 
                 if (progressValue2 < 100) {
@@ -112,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
                     progressValue2 = progressValue2 + random();
                 } else if (!hasWinner) {
                     onFirstRunnerFinished(2);
+                    showWinDialog("Red Horse");
                 }
 
                 if (progressValue3 < 100) {
@@ -119,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
                     progressValue3 = progressValue3 + random();
                 } else if (!hasWinner) {
                     onFirstRunnerFinished(3);
+                    showWinDialog("Yellow Horse");
                 }
 
                 if (progressValue1 < 100 || progressValue2 < 100 || progressValue3 < 100) {
@@ -130,7 +167,6 @@ public class MainActivity extends AppCompatActivity {
         };
         handler.post(runnable);
     }
-
     private int random() {
         Random random = new Random();
         return 2 + random.nextInt(2);
@@ -140,9 +176,31 @@ public class MainActivity extends AppCompatActivity {
         isRunning = false;
         handler.removeCallbacksAndMessages(null);
         if (!hasWinner) {
+
+            if (media != null) {
+                media.stop();
+                media.release();
+                media = null;
+            }
+
+
+            media = MediaPlayer.create(this, R.raw.piglevelwin);
+
+            media.setOnCompletionListener((ms)->{
+                if (media != null) {
+                    media.stop();
+                    media.release();
+                    media = null;
+                }
+
+                media = MediaPlayer.create(this, R.raw.bit_sample);
+                media.setLooping(true);
+                media.start();
+            });
+            media.start();
+
             hasWinner = true;
             winnerIndex = i;
-            Toast.makeText(MainActivity.this, "Runner " + i + " wins!", Toast.LENGTH_SHORT).show();
             int coc1 = getMoney(etCoc1);
             int coc2 = getMoney(etCoc2);
             int coc3 = getMoney(etCoc3);
@@ -215,7 +273,44 @@ public class MainActivity extends AppCompatActivity {
                     money.setText(String.valueOf(moneyInWallet));
                 }
             });
-}
 
+
+
+    //Override in Media
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (media != null) {
+            media.stop();
+            media.release();
+            media = null;
+        }
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (media != null && media.isPlaying()) {
+            media.pause();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (media != null && !media.isPlaying()) {
+            media.start();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (media != null) {
+            media.stop();
+            media.release();
+            media = null;
+        }
+    }
+}
 
 
