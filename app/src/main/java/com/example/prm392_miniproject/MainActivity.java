@@ -66,7 +66,8 @@ public class MainActivity extends AppCompatActivity {
                 int coc3 = getMoney(etCoc3);
                 int sum = coc1 + coc2 + coc3;
 
-                if (sum > 0 && sum <= moneyInWallet) {
+                if (sum > 0 && sum <= moneyInWallet)
+                {
                     if (!isRunning) {
                         moneyInWallet -= sum;
                         money.setText(String.valueOf(moneyInWallet));
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Hourses are already running", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(MainActivity.this, "Invalid", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Please bet on your favorite horse ", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadAction() {
-        isRunning = false;
+        isRunning = true;
         progressValue1 = 0;
         progressValue2 = 0;
         progressValue3 = 0;
@@ -113,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-         media = MediaPlayer.create(this,R.raw.game_countdown);
+        media = MediaPlayer.create(this,R.raw.game_countdown);
         media.setOnCompletionListener((mg)->{
             if (media != null) {
                 media.stop();
