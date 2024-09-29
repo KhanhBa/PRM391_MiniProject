@@ -82,21 +82,19 @@
         app:layout_constraintTop_toBottomOf="@+id/Game" />
 
     <RelativeLayout
+        android:background="#80333232"
         android:id="@+id/Play"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/btnNap"
-        tools:layout_editor_absoluteX="0dp">
+        >
 
         <RelativeLayout
             android:id="@+id/runLine1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-
-
+            android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/etCoc1"
                 android:layout_width="60dp"
