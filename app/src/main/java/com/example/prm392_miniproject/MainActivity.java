@@ -76,10 +76,14 @@ public class MainActivity extends AppCompatActivity {
                     }
                     else
                     {
-                        Toast.makeText(MainActivity.this, "Hourses are already running", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Horses are already running", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(MainActivity.this, "Please bet on your favorite horse ", Toast.LENGTH_SHORT).show();
+                    if(sum==0)
+                    {Toast.makeText(MainActivity.this, "Please bet on your favorite horses", Toast.LENGTH_SHORT).show();}
+                    else{
+                        Toast.makeText(MainActivity.this, "Invalid", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -87,8 +91,14 @@ public class MainActivity extends AppCompatActivity {
         btnNap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, DepositActivity.class);
-                depositLauncher.launch(intent);
+                if(!isRunning){
+                    Intent intent = new Intent(MainActivity.this, DepositActivity.class);
+                    depositLauncher.launch(intent);
+                }
+                else{
+                    Toast.makeText(MainActivity.this, "Horses are already running", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }
